@@ -44,6 +44,16 @@ npm run dev
 
 Открыть SwaggerUI можно по адресу: `http://localhost:5008/swagger`
 
+### Вариант второй (docker-compose)
+1. Клонировать репозиторий
+`git clone https://github.com/Neitralov/KonsisTest.git`
+2. Перейти в папку KonsisTest и запустить проект
+`docker-compose up -d --build`
+
+После открыть веб-приложение можно по адресу: `http://localhost:5173`
+
+Открыть SwaggerUI можно по адресу: `http://localhost:5008/swagger`
+
 ## 🧰 Стек технологий
 Fronted:
 
