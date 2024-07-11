@@ -10,7 +10,7 @@ export const SearchField: FC<Props> = ({placeholder, value, setValue}) => {
   return (
     <div className={"relative w-full"}>
       <input
-        className={"w-full xl:h-10 h-9 bg-background xl:text-base text-sm px-5 rounded"}
+        className={"w-full h-10 text-neutral-300 bg-neutral-700 border-neutral-600 border px-5 outline-neutral-500 placeholder-neutral-300"}
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}/>

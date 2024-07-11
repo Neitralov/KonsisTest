@@ -16,7 +16,6 @@ export const PasswordEditor: FC<Props> = ({setIsModalOpen, passwords, setPasswor
   const secretValidator = useValidationHelper("Отсутствует пароль")
 
   useEffect(() => {
-    console.log(password.isEmail)
     validateTitle()
     validateSecret()
   }, [password]);
@@ -39,7 +38,7 @@ export const PasswordEditor: FC<Props> = ({setIsModalOpen, passwords, setPasswor
       return
     }
 
-    if (passwords.some(item => item.title.toLowerCase() == password.title.toLowerCase())) {
+    if (passwords.some(item => item.title.toLowerCase().trim() == password.title.toLowerCase().trim())) {
       alert("Пароль для такого сайта/почты уже записан")
       return
     }
@@ -86,39 +85,50 @@ export const PasswordEditor: FC<Props> = ({setIsModalOpen, passwords, setPasswor
   }
 
   return(
-    <div className={"flex flex-col xl:gap-5 gap-4 justify-between"}>
-      <p className={"text-red-600"}>{titleValidator.isDirty ? titleValidator.errorMessage : ''}</p>
-      <input
-        className={"bg-gray-200"}
-        placeholder={"Введите название..."}
-        value={password?.title}
-        onBlur={() => titleValidator.setIsDirty(true)}
-        onChange={e => setPassword(prevState => ({...prevState, title: e.target.value}))}/>
-      <p className={"text-red-600"}>{secretValidator.isDirty ? secretValidator.errorMessage : ''}</p>
-      <input
-        className={"bg-gray-200"}
-        placeholder={"Введите пароль..."}
-        value={password?.secret}
-        onBlur={() => secretValidator.setIsDirty(true)}
-        onChange={e => setPassword(prevState => ({...prevState, secret: e.target.value}))}/>
-      <div>
+    <div className={"flex flex-col gap-3 justify-between"}>
+      <div className={"flex flex-col gap-1"}>
+        <p className={"text-red-600"}>{titleValidator.isDirty ? titleValidator.errorMessage : ''}</p>
         <input
-          type={"radio"}
-          id={"other"}
-          name={"isEmail"}
-          checked={!password.isEmail}
-          onChange={_ => setPassword(prevState => ({...prevState, isEmail: false}))}/>
-        <label htmlFor="other"> Сайт</label><br/>
-        <input
-          type={"radio"}
-          id={"email"}
-          name={"isEmail"}
-          checked={password.isEmail}
-          onChange={_ => setPassword(prevState => ({...prevState, isEmail: true}))}/>
-        <label htmlFor="email"> Email</label>
+          className={"w-full px-2 py-1.5 text-neutral-300 bg-neutral-700 hover:bg-neutral-600 placeholder-neutral-300 outline-neutral-500"}
+          placeholder={"Введите название ресурса..."}
+          value={password?.title}
+          onBlur={() => titleValidator.setIsDirty(true)}
+          onChange={e => setPassword(prevState => ({...prevState, title: e.target.value}))}/>
       </div>
-      <div className={"flex justify-between"}>
-        <Button onClick={back}>
+
+      <div className={"flex flex-col gap-1"}>
+        <p className={"text-red-600"}>{secretValidator.isDirty ? secretValidator.errorMessage : ''}</p>
+        <input
+          className={"w-full px-2 py-1.5 text-neutral-300 bg-neutral-700 hover:bg-neutral-600 placeholder-neutral-300 outline-neutral-500"}
+          placeholder={"Введите пароль..."}
+          value={password?.secret}
+          onBlur={() => secretValidator.setIsDirty(true)}
+          onChange={e => setPassword(prevState => ({...prevState, secret: e.target.value}))}/>
+      </div>
+
+      <div className={"flex gap-2"}>
+        <div>
+          <input
+            type={"radio"}
+            id={"other"}
+            name={"isEmail"}
+            checked={!password.isEmail}
+            onChange={_ => setPassword(prevState => ({...prevState, isEmail: false}))}/>
+          <label className={"text-neutral-300"} htmlFor="other"> Сайт</label>
+        </div>
+        <div>
+          <input
+            type={"radio"}
+            id={"email"}
+            name={"isEmail"}
+            checked={password.isEmail}
+            onChange={_ => setPassword(prevState => ({...prevState, isEmail: true}))}/>
+          <label className={"text-neutral-300"} htmlFor="email"> Email</label>
+        </div>
+      </div>
+
+      <div className={"flex justify-between mt-2"}>
+      <Button onClick={back}>
           <span className={"text-base"}>Назад</span>
         </Button>
         <Button onClick={save}>
