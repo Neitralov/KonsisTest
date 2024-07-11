@@ -1,0 +1,12 @@
+services:
+  konsis-test-frontend:
+    container_name: konsis-test-frontend
+    build: client/
+    ports:
+      - "5173:5173"
+
+  konsis-test-backend:
+    container_name: konsis-test-backend
+    build: server/
+    ports:
+      - "5008:5008"
